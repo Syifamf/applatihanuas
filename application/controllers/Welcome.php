@@ -3,6 +3,8 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 use Jenssegers\Blade\Blade;
+use Orm\User;
+use Orm\Post;
 
 class Welcome extends CI_Controller
 {
@@ -37,26 +39,53 @@ class Welcome extends CI_Controller
 
     public function index()
     {
-        $this->_createView('form', []);
+        $data_user = User::all();
+
+        $this->_createView('form', ['daftar_user' => $data_user] );
     }
 
     public function simpan()
     {
-        $this->_createView('simpan', []);
+        $user_id = $this->input->post('username');
+        $artikel = $this->input->post('artikel');
+
+        $post = new Post();
+        $post->user_id = $user_id;
+        $post->artikel = $artikel;
+        $post->save();
+
+        redirect('welcome/tampil');
     }
 
-    public function hapus()
+    public function hapus($id)
     {
-        $this->_createView('hapus', []);
+        $post = post::find($id);
+        $post->delete();
+
+
+        redirect ('welcome/tampil');
     }
 
-    public function ubah()
+    public function ubah($id)
     {
-        $this->_createView('update', []);
+        $data_user = User::all();
+        $post = Post::find($id);
+        $this->_createView('update', ['post'=>$post, 'daftar_user' => $data_user]);
+    }
+
+    public function update($id)
+    {
+        $post = User::find($id);
+        $post->user_id = $this->input->post('username');
+        $post->artikel = $this->input->post('artikel');
+        $post->save();
+
+        redirect('welcome/tampil');
     }
 
     public function tampil()
     {
-        $this->_createView('tampil', []);
+        $post_list = Post::all();
+        $this->_createView('tampil', ['post_list'=> $post_list]);
     }
 }
