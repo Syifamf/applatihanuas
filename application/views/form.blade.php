@@ -29,7 +29,8 @@
     <hr class="col-3 col-md-2 mb-5">
     
     <div class="row g-5">
-      <div class="col-md-6">
+      <div class="col-md-6"> 
+        <h2 class="text-body-emphasis">Form Update Artikel</h2>
         <h2 class="text-body-emphasis">Form Input Artikel</h2>
         <p>Masukan data yang akan di proses</p>
         <form method="post" action="{{ site_url('Welcome/simpan') }}">
