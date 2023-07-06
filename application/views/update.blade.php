@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="/docs/5.3/assets/js/color-modes.js"></script>
@@ -31,25 +30,57 @@
 
     <div class="row g-5">
       <div class="col-md-6">
-        <h2 class="text-body-emphasis">Form Input Artikel</h2>
+        <h2 class="text-body-emphasis">Form Update Artikel</h2>
         <p>Masukan data yang akan di proses</p>
-        <form method="post" action="{{ site_url('welcome/update/' .$post->id) }}">
+        <form method="post" action="{{ site_url('Welcome/update/' . $post->id) }}">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
-                <select class="form-control" name="username">
-
-                  @foreach($daftar_user as $user)
-                  <option value="{{ $user->id }}" {{ $post->user_id == $user->id ? "selected" : ""}}>{{ $user->username }}</option>
+                <select class = "form-control" name="user_id" id="">
+                  @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->username }}</option>
                   @endforeach
-                  </select>
+                </select>
             </div>
+            <!-- radio -->
+            <p>Jenis</p>
+            <div class="form-check form-check-inline">
+              @if($jenis == 0)
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Berita" required checked>
+              @else
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Berita" required>
+              @endif
+              <label class="form-check-label" for="flexRadioDefault1">
+                Berita
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              @if($jenis == 1)
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Tutorial" required checked>
+              @else
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Tutorial" required>
+              @endif
+              <label class="form-check-label" for="flexRadioDefault1">
+                Tutorial
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              @if($jenis == 2)
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Blog" required checked>
+              @else
+                <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault1" value="Blog" required>
+              @endif
+              <label class="form-check-label" for="flexRadioDefault1">
+                Blog
+              </label>
+            </div>
+            <br>
+            <!-- artikel -->
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Artikel</label>
-                <textarea class="form-control" id="nama" name="artikel" rows="3">{{ $post->artikel }}</textarea>
+                <textarea class="form-control" id="nama" name="article" rows="3" required>{{ $post->article }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a class="btn btn-secondary" href="{{ site_url('welcome/tampil') }}">Tampil</a>
-        </form>
+          </form>
       </div>
     </div>
   </main>
